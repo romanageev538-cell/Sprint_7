@@ -1,12 +1,15 @@
 import io.restassured.RestAssured;
-
 import model.CourierModel;
 import org.junit.After;
 import org.junit.Before;
 
-
-import static data.CourierData.*;
-import static steps.CourierSteps.*;
+import static data.CourierData.BASE_URL;
+import static data.CourierData.LOGIN;
+import static data.CourierData.PASSWORD;
+import static data.CourierData.FIRSTNAME;
+import static steps.CourierSteps.createCourier;
+import static steps.CourierSteps.loginCourier;
+import static steps.CourierSteps.deleteCourier;
 
 public class BaseApiTest {
 
@@ -16,26 +19,20 @@ public class BaseApiTest {
     @Before
     public void setup() {
         RestAssured.baseURI = BASE_URL;
-        CourierModel existingCourier = new CourierModel(LOGIN, PASSWORD, FIRSTNAME);// создаем курьера, для теста с дубликатом
+
+        CourierModel existingCourier = new CourierModel(LOGIN, PASSWORD, FIRSTNAME);
         createCourier(existingCourier);
         existingCourierId = loginCourier(existingCourier);
     }
 
     @After
     public void tearDown() {
-        // Удаляем курьера, созданного в @Before
         if (existingCourierId > 0) {
             deleteCourier(existingCourierId);
-
-            // Удаляем курьера, созданного в тесте (если есть)
-            if (createdCourierId > 0) {
-                deleteCourier(createdCourierId);
-
-            }
-
-
         }
 
+        if (createdCourierId > 0) {
+            deleteCourier(createdCourierId);
+        }
     }
-
 }

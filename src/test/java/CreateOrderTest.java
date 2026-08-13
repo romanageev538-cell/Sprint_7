@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static data.OrderData.BASE_URL;
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static steps.OrderSteps.createOrder;
@@ -81,7 +82,7 @@ public class CreateOrderTest {
         // Проверяем статус 201 и наличие track
         response.then()
                 .log().all()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("track", notNullValue());
 
         // Сохраняем track для отмены в @After

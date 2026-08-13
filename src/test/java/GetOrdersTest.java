@@ -10,6 +10,7 @@ import java.util.List;
 import static data.OrderData.BASE_URL;
 import static data.OrderData.ORDERS_LIST_PATH;
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
@@ -30,7 +31,7 @@ public class GetOrdersTest {
                 .get(ORDERS_LIST_PATH)
                 .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("orders", notNullValue())
                 .body("orders", instanceOf(List.class));
     }

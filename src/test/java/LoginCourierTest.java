@@ -6,6 +6,7 @@ import model.CourierModel;
 
 
 import static data.CourierData.*;
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static steps.CourierSteps.loginCourierRaw;
@@ -22,7 +23,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("id", notNullValue()); // id должен быть числом
     }
 
@@ -35,7 +36,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -48,7 +49,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -62,7 +63,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -76,7 +77,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -90,7 +91,7 @@ public class LoginCourierTest extends BaseApiTest {
         Response response = loginCourierRaw(loginData);
         response.then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 }
