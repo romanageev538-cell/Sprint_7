@@ -37,3 +37,18 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Allure reports and results
+.allure/
+allure-results/
+allure-report/
+
+### IntelliJ IDEA ###
+.idea/
+
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
